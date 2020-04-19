@@ -22,7 +22,8 @@
     "storybook": "start-storybook -p 6006 -s dist --ci",
     "storybook-dev": "npm-run-all --aggregate-output --continue-on-error --parallel start storybook",
     "build-storybook": "build-storybook -s dist",
-    "deploy-storybook":"run-s build build-storybook",
+    "pre-build":"ember build",
+    "deploy-storybook":"run-s pre-build build-storybook",
     "storybook-local-prod":"serve storybook-static"
   },
   "devDependencies": {
