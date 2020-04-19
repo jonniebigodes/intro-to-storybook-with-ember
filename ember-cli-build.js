@@ -7,6 +7,18 @@ module.exports = function(defaults) {
     // Add options here
   });
 
+  /* if (app.env==='test'){
+    app.import('vendor/taskbox-fixtures/Task.stories.js',{
+      type: 'vendor',
+      prepend: true
+    });
+    app.import('vendor/taskbox-fixtures/TaskList.stories.js',{
+      type: 'vendor',
+      prepend: true
+    });
+  } */
+  
+
   // Use `app.import` to add additional libraries to the generated
   // output files.
   //
