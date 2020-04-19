@@ -1,7 +1,7 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/dist/
+#/dist/
 /tmp/
 /storybook-static/
 
@@ -24,3 +24,6 @@
 /.node_modules.ember-try/
 /bower.json.ember-try
 /package.json.ember-try
+
+# Local Netlify folder
+.netlify
