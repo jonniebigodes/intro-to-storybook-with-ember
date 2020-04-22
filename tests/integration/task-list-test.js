@@ -3,7 +3,7 @@ import { setupRenderingTest } from "ember-qunit";
 import { render } from "@ember/test-helpers";
 import { hbs } from "ember-cli-htmlbars";
 /* import hbs from "htmlbars-inline-precompile"; */
-module("Integration | Component | TaskList", function (hooks) {
+module("Integration | Component | PureTaskList", function (hooks) {
   setupRenderingTest(hooks);
   const taskData = {
     id: "1",
@@ -39,7 +39,7 @@ module("Integration | Component | TaskList", function (hooks) {
     });
 
     await render(
-      hbs`{{TaskList tasks=tasks pinTask=(action testpinTask) archiveTask=(action testarchiveTask) }}`
+      hbs`{{PureTaskList tasks=tasks pinTask=(action testpinTask) archiveTask=(action testarchiveTask) }}`
       /* hbs`<task-list @tasks={{this.tasks}}` */
     );
     /* const firstItem= this.element.querySelectorAll('.list-item').length */

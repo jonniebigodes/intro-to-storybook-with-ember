@@ -2,8 +2,8 @@ import { hbs } from "ember-cli-htmlbars";
 import { taskData, actionsData } from "./Task.stories";
 
 export default {
-  title: "TaskList",
-  component: "TaskList",
+  title: "PureTaskList",
+  component: "PureTaskList",
   excludeStories: /.*Data$/,
 };
 
@@ -22,7 +22,7 @@ export const withPinnedTasksData = [
 ];
 
 export const Default = () => ({
-  template: hbs`<div style="padding: 3rem">{{TaskList tasks=tasks pinTask=(action taskActions.onPinTask) archiveTask=(action taskActions.onArchiveTask)}}</div>`,
+  template: hbs`<div style="padding: 3rem">{{PureTaskList tasks=tasks pinTask=(action taskActions.onPinTask) archiveTask=(action taskActions.onArchiveTask)}}</div>`,
   context: {
     tasks: defaultTasksData,
     taskActions: {
@@ -32,7 +32,7 @@ export const Default = () => ({
 });
 
 export const WithPinnedTasks = () => ({
-  template: hbs`<div style="padding: 3rem">{{TaskList tasks=tasks pinTask=(action taskActions.onPinTask) archiveTask=(action taskActions.onArchiveTask)}}</div>`,
+  template: hbs`<div style="padding: 3rem">{{PureTaskList tasks=tasks pinTask=(action taskActions.onPinTask) archiveTask=(action taskActions.onArchiveTask)}}</div>`,
   context: {
     tasks: withPinnedTasksData,
     taskActions: {
@@ -41,13 +41,13 @@ export const WithPinnedTasks = () => ({
   },
 });
 export const Loading = () => ({
-  template: hbs`<div style="padding: 3rem">{{TaskList loading=true tasks=tasks}}</div>`,
+  template: hbs`<div style="padding: 3rem">{{PureTaskList loading=true tasks=tasks}}</div>`,
   context: {
     tasks: [],
   },
 });
-export const empty = () => ({
-  template: hbs`<div style="padding: 3rem">{{TaskList tasks=tasks}}</div>`,
+export const Empty = () => ({
+  template: hbs`<div style="padding: 3rem">{{PureTaskList tasks=tasks}}</div>`,
   context: {
     tasks: [],
   },

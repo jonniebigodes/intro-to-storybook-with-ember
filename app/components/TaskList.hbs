@@ -1,34 +1,3 @@
-{{!-- {{#if loading}}
-  <div class="list-items">loading</div>
-{{/if}}
-
-{{#if emptyTasks}}
-  <div class="list-items">empty</div>
-{{/if}}
-
-{{#each @tasks as |task|}}
- {{Task task=task pinTask=(action pinTask) archiveTask=(action archiveTask)}}
-{{/each}} --}}
-
-
-{{#if loading}}
-<LoadingRow />
-<LoadingRow />
-<LoadingRow />
-<LoadingRow />
-<LoadingRow />
-{{/if}}
-
-{{#if emptyTasks}}
-<div class="list-items">
-  <div class="wrapper-message">
-    <span class="icon-check" />
-    <div class="title-message">You have no tasks</div>
-    <div class="subtitle-message">Sit back and relax</div>
-  </div>
+<div>
+   {{PureTaskList tasks=tasks pinTask=(action "onPinTask") archiveTask=(action "onArchiveTask")}}
 </div>
-{{/if}}
-
-{{#each tasksInOrder as |task|}}
-{{Task task=task pinTask=(action pinTask) archiveTask=(action archiveTask)}}
-{{/each}}
