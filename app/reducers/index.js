@@ -9,18 +9,20 @@ const defaultTasks = [
 ];
 
 const initialState = {
+  isError:false, // update for screen section
   tasks: defaultTasks,
 };
 // The actions are the "names" of the changes that can happen to the store
 export const actions = {
   ARCHIVE_TASK: "ARCHIVE_TASK",
   PIN_TASK: "PIN_TASK",
+  SET_ERROR:'SET_ERROR' // update for screen section
 };
 
 // The action creators bundle actions with the data required to execute them
 export const archiveTask = (id) => ({ type: actions.ARCHIVE_TASK, id });
 export const pinTask = (id) => ({ type: actions.PIN_TASK, id });
-
+export const setError=()=>({type:actions.SET_ERROR})
 // All our reducers simply change the state of a single task.
 function taskStateReducer(taskState) {
   return (state, action) => {
@@ -40,11 +42,16 @@ export const reducer = (state, action) => {
       return taskStateReducer("TASK_ARCHIVED")(state, action);
     case actions.PIN_TASK:
       return taskStateReducer("TASK_PINNED")(state, action);
+    case actions.SET_ERROR: // update for screen section
+      return{
+        ...state,
+        isError:true
+      }
     default:
       return state || initialState;
   }
 };
 
 export default combineReducers({
-    reducer
-})
+  reducer,
+});

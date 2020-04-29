@@ -22,14 +22,14 @@
 <div class="list-item {{@task.state}}">
   <label class="checkbox">
     <input type="checkbox" disabled name="checked" checked={{this.isTaskArchived}}/>
-    <span class="checkbox-custom" {{action 'handleArchiveTask'}}/>
+    <span class="checkbox-custom" onclick={{this.handleArchiveTask}}/>
   </label>
   <div class="title">
-    <input type="text" readonly value={{@task.title}} placeholder="Input title" style="text-overflow: ellipsis;" />
+    <input type="text" readonly value={{@task.title}} placeholder="Input title" style="text-overflow: ellipsis;"/>
   </div>
   <div class="actions">
     {{#if (not-eq @task.state "TASK_ARCHIVED")}}
-      <a href="/"{{action 'handlePinTask'}}><span class="icon-star"  /></a>
+      <a href="/" onclick={{this.handlePinTask}}><span class="icon-star"  /></a>
     {{/if}}
   </div>
 </div>
