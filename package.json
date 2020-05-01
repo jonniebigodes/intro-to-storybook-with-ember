@@ -22,10 +22,9 @@
     "storybook": "start-storybook -p 6006 -s dist --ci",
     "storybook-dev": "npm-run-all --aggregate-output --continue-on-error --parallel start storybook",
     "build-storybook": "build-storybook -s dist",
-    "pre-build": "ember build",
-    "deploy-storybook": "run-s pre-build build-storybook",
+    "prebuild-storybook": "ember build",
     "storybook-local-prod": "serve storybook-static",
-    "chromatic": "CHROMATIC_APP_CODE=boop chromatic"
+    "chromatic": "chromatic --project-token=oingo-bongo"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -42,6 +41,7 @@
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "broccoli-asset-rev": "^3.0.0",
+    "chromatic": "^4.0.2",
     "ember-auto-import": "^1.5.3",
     "ember-cli": "~3.17.0",
     "ember-cli-app-version": "^3.2.0",
@@ -69,8 +69,7 @@
     "loader.js": "^4.7.0",
     "npm-run-all": "^4.1.5",
     "qunit-dom": "^1.1.0",
-    "serve": "^11.3.0",
-    "storybook-chromatic": "^4.0.2"
+    "serve": "^11.3.0"
   },
   "engines": {
     "node": "10.* || >= 12"
