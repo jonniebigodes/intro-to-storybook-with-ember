@@ -7,16 +7,14 @@ define("taskbox/tests/acceptance/app-test", ["qunit", "@ember/test-helpers", "em
     (0, _emberQunit.setupApplicationTest)(hooks);
     (0, _qunit.test)("visiting /", async function (assert) {
       await (0, _testHelpers.visit)("/");
-      assert.equal((0, _testHelpers.currentURL)(), "/");
-      assert.dom("h2").hasText("Congratulations, you made it!");
+      assert.equal((0, _testHelpers.currentURL)(), "/"); // assert.dom("h2").hasText("Congratulations, you made it!");
     });
   });
 });
-define("taskbox/tests/integration/task-list-test", ["qunit", "ember-qunit", "@ember/test-helpers"], function (_qunit, _emberQunit, _testHelpers) {
+define("taskbox/tests/integration/pure-task-list-test", ["qunit", "ember-qunit", "@ember/test-helpers", "sinon"], function (_qunit, _emberQunit, _testHelpers, _sinon) {
   "use strict";
 
-  /* import hbs from "htmlbars-inline-precompile"; */
-  (0, _qunit.module)("Integration | Component | TaskList", function (hooks) {
+  (0, _qunit.module)("Integration | Component | <PureTaskList>", function (hooks) {
     (0, _emberQunit.setupRenderingTest)(hooks);
     const taskData = {
       id: "1",
@@ -51,45 +49,133 @@ define("taskbox/tests/integration/task-list-test", ["qunit", "ember-qunit", "@em
     }); */
 
     (0, _qunit.test)("renders pinned tasks at the start of the list", async function (assert) {
-      this.set("tasks", tasklist);
-      this.set("testpinTask", actual => {
-        console.log(`pinTask actual:${actual}`);
-        let expected = 1;
-        assert.deepEquals(actual, expected);
-      });
-      this.set("testarchiveTask", actual => {
-        console.log(`archiveTask actual:${actual}`);
-        let expected = 1;
-        assert.deepEquals(actual, expected);
-      });
+      this.tasks = tasklist; // this.pinTask = sinon.stub();
+      // this.archiveTask = sinon.stub();
+      // // this.set("testpinTask", (actual) => {
+      // //   console.log(`pinTask actual:${actual}`);
+      // //   let expected = 1;
+      // //   assert.deepEquals(actual, expected);
+      // // });
+      // this.set("testarchiveTask", (actual) => {
+      //   console.log(`archiveTask actual:${actual}`);
+      //   let expected = 1;
+      //   assert.deepEquals(actual, expected);
+      // });
+
       await (0, _testHelpers.render)(Ember.HTMLBars.template(
       /*
-        {{TaskList tasks=tasks pinTask=(action testpinTask) archiveTask=(action testarchiveTask) }}
+        <PureTaskList @tasks={{this.tasks}}/>
       */
       {
-        id: "iECMgZNB",
-        block: "{\"symbols\":[],\"statements\":[[1,0,0,0,[31,2,8,[27,[26,4,\"CallHead\"],[]],null,[[\"tasks\",\"pinTask\",\"archiveTask\"],[[27,[26,3,\"Expression\"],[]],[31,32,6,[27,[26,1,\"CallHead\"],[]],[[27,[24,0],[]],[27,[26,2,\"Expression\"],[]]],null],[31,65,6,[27,[26,1,\"CallHead\"],[]],[[27,[24,0],[]],[27,[26,0,\"Expression\"],[]]],null]]]]]],\"hasEval\":false,\"upvars\":[\"testarchiveTask\",\"action\",\"testpinTask\",\"tasks\",\"TaskList\"]}",
+        id: "T4z4XlO8",
+        block: "{\"symbols\":[],\"statements\":[[7,\"pure-task-list\",[],[[\"@tasks\"],[[27,[24,0],[\"tasks\"]]]],null]],\"hasEval\":false,\"upvars\":[]}",
         meta: {}
-      })
-      /* hbs`<task-list @tasks={{this.tasks}}` */
-      );
-      /* const firstItem= this.element.querySelectorAll('.list-item').length */
+      })); // /* const firstItem= this.element.querySelectorAll('.list-item').length */
+      // /* const firstItem= this.element.querySelector('.list-item:nth-of-type(1)').classList */
 
-      /* const firstItem= this.element.querySelector('.list-item:nth-of-type(1)').classList */
-
-      assert.dom(this.element.querySelector(".list-item:nth-of-type(1)")).hasClass("TASK_PINNED");
+      assert.dom('[data-test-task]:nth-of-type(1)').hasClass("TASK_PINNED");
       /* console.log(`firstItem:${JSON.stringify(firstItem,null,2)}`) */
 
       /* console.log(`firstItem:${firstItem}`) */
 
       /* assert.ok(1 == 1, "one equals one"); */
     });
+    (0, _qunit.test)("can pin tasks", async function (assert) {
+      this.tasks = tasklist;
+      this.pinTask = _sinon.default.spy();
+      await (0, _testHelpers.render)(Ember.HTMLBars.template(
+      /*
+        <PureTaskList
+              @tasks={{this.tasks}}
+              @pinTask={{this.pinTask}}
+            />
+      */
+      {
+        id: "xVH91u4w",
+        block: "{\"symbols\":[],\"statements\":[[7,\"pure-task-list\",[],[[\"@tasks\",\"@pinTask\"],[[27,[24,0],[\"tasks\"]],[27,[24,0],[\"pinTask\"]]]],null]],\"hasEval\":false,\"upvars\":[]}",
+        meta: {}
+      }));
+      await (0, _testHelpers.click)('[data-test-task]:nth-of-type(3) [data-test-task-pin]');
+      assert.ok(this.pinTask.calledOnce);
+    });
   });
 });
-define("taskbox/tests/test-helper", ["taskbox/app", "taskbox/config/environment", "@ember/test-helpers", "ember-qunit"], function (_app, _environment, _testHelpers, _emberQunit) {
+define("taskbox/tests/integration/task-test", ["qunit", "ember-qunit", "@ember/test-helpers", "sinon"], function (_qunit, _emberQunit, _testHelpers, _sinon) {
+  "use strict";
+
+  (0, _qunit.module)("Integration | Component | <Task>", function (hooks) {
+    (0, _emberQunit.setupRenderingTest)(hooks);
+    const taskData = {
+      id: "1",
+      title: "Test Task",
+      state: "TASK_INBOX",
+      updatedAt: new Date(2018, 0, 1, 9, 0)
+    };
+    (0, _qunit.test)("renders tasks", async function (assert) {
+      this.task = taskData;
+      await (0, _testHelpers.render)(Ember.HTMLBars.template(
+      /*
+        <Task @task={{this.task}}/>
+      */
+      {
+        id: "jkwMU0SL",
+        block: "{\"symbols\":[],\"statements\":[[7,\"task\",[],[[\"@task\"],[[27,[24,0],[\"task\"]]]],null]],\"hasEval\":false,\"upvars\":[]}",
+        meta: {}
+      }));
+      assert.dom('[data-test-task]').exists();
+    });
+    (0, _qunit.test)("renders pinned task", async function (assert) {
+      this.task = { ...taskData,
+        state: 'TASK_PINNED'
+      };
+      await (0, _testHelpers.render)(Ember.HTMLBars.template(
+      /*
+        <Task @task={{this.task}}/>
+      */
+      {
+        id: "jkwMU0SL",
+        block: "{\"symbols\":[],\"statements\":[[7,\"task\",[],[[\"@task\"],[[27,[24,0],[\"task\"]]]],null]],\"hasEval\":false,\"upvars\":[]}",
+        meta: {}
+      }));
+      assert.dom('[data-test-task]').hasClass('TASK_PINNED');
+    });
+    (0, _qunit.test)("renders archived task", async function (assert) {
+      this.task = { ...taskData,
+        state: 'TASK_ARCHIVE'
+      };
+      await (0, _testHelpers.render)(Ember.HTMLBars.template(
+      /*
+        <Task @task={{this.task}}/>
+      */
+      {
+        id: "jkwMU0SL",
+        block: "{\"symbols\":[],\"statements\":[[7,\"task\",[],[[\"@task\"],[[27,[24,0],[\"task\"]]]],null]],\"hasEval\":false,\"upvars\":[]}",
+        meta: {}
+      }));
+      assert.dom('[data-test-task]').hasClass('TASK_ARCHIVE');
+    });
+    (0, _qunit.test)('can pin task', async function (assert) {
+      this.task = taskData;
+      this.pinTask = _sinon.default.spy();
+      await (0, _testHelpers.render)(Ember.HTMLBars.template(
+      /*
+        <Task @task={{this.task}} @pin={{this.pinTask}}/>
+      */
+      {
+        id: "eVvMgRjB",
+        block: "{\"symbols\":[],\"statements\":[[7,\"task\",[],[[\"@task\",\"@pin\"],[[27,[24,0],[\"task\"]],[27,[24,0],[\"pinTask\"]]]],null]],\"hasEval\":false,\"upvars\":[]}",
+        meta: {}
+      }));
+      await (0, _testHelpers.click)('[data-test-task-pin]');
+      assert.ok(this.pinTask.calledOnce);
+    });
+  });
+});
+define("taskbox/tests/test-helper", ["taskbox/app", "taskbox/config/environment", "@ember/test-helpers", "ember-qunit", "ember-sinon-qunit"], function (_app, _environment, _testHelpers, _emberQunit, _emberSinonQunit) {
   "use strict";
 
   (0, _testHelpers.setApplication)(_app.default.create(_environment.default.APP));
+  (0, _emberSinonQunit.default)();
   (0, _emberQunit.start)();
 });
 define('taskbox/config/environment', [], function() {

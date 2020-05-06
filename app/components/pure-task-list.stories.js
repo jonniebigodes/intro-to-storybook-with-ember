@@ -1,5 +1,5 @@
 import { hbs } from "ember-cli-htmlbars";
-import { taskData, actionsData } from "./Task.stories";
+import { taskData, actionsData } from "./task.stories";
 
 export default {
   title: "PureTaskList",
@@ -22,32 +22,54 @@ export const withPinnedTasksData = [
 ];
 
 export const Default = () => ({
-  template: hbs`<div style="padding: 3rem">{{PureTaskList tasks=tasks pinTask=(action taskActions.onPinTask) archiveTask=(action taskActions.onArchiveTask)}}</div>`,
+  template: hbs`
+    <div style="padding: 3rem">
+      <PureTaskList
+        @tasks={{this.tasks}}
+        @pinTask={{fn this.onPinTask}}
+        @archiveTask={{fn this.onArchiveTask}}
+      />
+    </div>
+  `,
   context: {
     tasks: defaultTasksData,
-    taskActions: {
-      ...actionsData,
-    },
+    ...actionsData
   },
 });
 
 export const WithPinnedTasks = () => ({
-  template: hbs`<div style="padding: 3rem">{{PureTaskList tasks=tasks pinTask=(action taskActions.onPinTask) archiveTask=(action taskActions.onArchiveTask)}}</div>`,
+  template: hbs`
+    <div style="padding: 3rem">
+      <PureTaskList
+        @tasks={{this.tasks}}
+        @pinTask={{fn this.onPinTask}}
+        @archiveTask={{fn this.onArchiveTask}}
+      />
+    </div>
+  `,
   context: {
     tasks: withPinnedTasksData,
-    taskActions: {
-        ...actionsData,
-      },
+    ...actionsData
   },
 });
+
 export const Loading = () => ({
-  template: hbs`<div style="padding: 3rem">{{PureTaskList loading=true tasks=tasks}}</div>`,
+  template: hbs`
+    <div style="padding: 3rem">
+      <PureTaskList @loading={{true}} @tasks={{this.tasks}}/>
+    </div>
+  `,
   context: {
     tasks: [],
   },
 });
+
 export const Empty = () => ({
-  template: hbs`<div style="padding: 3rem">{{PureTaskList tasks=tasks}}</div>`,
+  template: hbs`
+    <div style="padding: 3rem">
+      <PureTaskList @tasks={{this.tasks}}/>
+    </div>
+  `,
   context: {
     tasks: [],
   },

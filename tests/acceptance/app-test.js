@@ -8,8 +8,8 @@ module("Acceptance| taskbox", function(hooks) {
     await visit("/");
 
     assert.equal(currentURL(), "/");
-    assert.dom("h2").hasText("Congratulations, you made it!");
+    // assert.dom("h2").hasText("Congratulations, you made it!");
 
-   
+
   });
 });

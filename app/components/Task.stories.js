@@ -45,50 +45,67 @@ export const actionsData = {
 const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
 export const Default = () => ({
-  template: hbs`{{Task task=task pinTask=(action taskActions.onPinTask) archiveTask=(action taskActions.onArchiveTask)}}`,
+  template: hbs`
+    <Task
+      @task={{this.task}}
+      @pin={{fn this.onPinTask}}
+      @archive={{fn this.onArchiveTask}}
+    />
+  `,
   context: {
     task: object('task', { ...taskData }),
-    taskActions: {
-      ...actionsData,
-    },
+    ...actionsData
   },
 });
 //
 
 export const Pinned = () => ({
-  template: hbs`{{Task task=task pinTask=(action taskActions.onPinTask) archiveTask=(action taskActions.onArchiveTask)}}`,
+  template: hbs`
+    <Task
+      @task={{this.task}}
+      @pin={{fn this.onPinTask}}
+      @archive={{fn this.onArchiveTask}}
+    />
+  `,
   context: {
     task: {
       ...taskData,
       state: "TASK_PINNED",
     },
-    taskActions: {
-      ...actionsData,
-    },
+    ...actionsData
   },
 });
 
 export const Archived = () => ({
-  template: hbs`{{Task task=task pinTask=(action taskActions.onPinTask) archiveTask=(action taskActions.onArchiveTask)}}`,
+  template: hbs`
+    <Task
+      @task={{this.task}}
+      @pin={{fn this.onPinTask}}
+      @archive={{fn this.onArchiveTask}}
+    />
+  `,
   context: {
     task: {
       ...taskData,
       state: "TASK_ARCHIVED",
     },
-    taskActions: {
-      ...actionsData,
-    },
+    ...actionsData
   },
 });
+
 export const LongTitle = () => ({
-  template: hbs`{{Task task=task pinTask=(action taskActions.onPinTask) archiveTask=(action taskActions.onArchiveTask)}}`,
+  template: hbs`
+    <Task
+      @task={{this.task}}
+      @pin={{fn this.onPinTask}}
+      @archive={{fn this.onArchiveTask}}
+    />
+  `,
   context: {
     task: {
       ...taskData,
       title: longTitle,
     },
-    taskActions: {
-      ...actionsData,
-    },
+    ...actionsData
   },
 });

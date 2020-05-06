@@ -54,7 +54,7 @@
     }
   });
 });
-;define("taskbox/components/Task", ["exports"], function (_exports) {
+;define("taskbox/components/Task", ["exports", "@glimmer/component"], function (_exports, _component) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -62,96 +62,70 @@
   });
   _exports.default = void 0;
 
+  var _class;
+
+  function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) { var desc = {}; Object.keys(descriptor).forEach(function (key) { desc[key] = descriptor[key]; }); desc.enumerable = !!desc.enumerable; desc.configurable = !!desc.configurable; if ('value' in desc || desc.initializer) { desc.writable = true; } desc = decorators.slice().reverse().reduce(function (desc, decorator) { return decorator(target, property, desc) || desc; }, desc); if (context && desc.initializer !== void 0) { desc.value = desc.initializer ? desc.initializer.call(context) : void 0; desc.initializer = undefined; } if (desc.initializer === void 0) { Object.defineProperty(target, property, desc); desc = null; } return desc; }
+
   const __COLOCATED_TEMPLATE__ = Ember.HTMLBars.template(
   /*
-    {{!-- initial code --}}
-  {{!-- <div class="list-item">
-    <input type="text" value={{@task.title}} readonly={{true}}/>
-  </div>
-   --}}
-  {{!-- updated code simple component--}}
-  {{!-- <div class="list-item {{@task.state}}">
+    <div class="list-item {{@task.state}}" data-test-task>
     <label class="checkbox">
-      <input type="checkbox" disabled name="checked" checked={{this.isTaskArchived}}/>
-      <span class="checkbox-custom" {{action 'handleArchiveTask'}}/>
+      <input
+        type="checkbox"
+        disabled
+        name="checked"
+        checked={{this.isTaskArchived}}
+      />
+      <span
+        class="checkbox-custom"
+        data-test-task-archive
+        {{on "click" this.archive}}
+      ></span>
     </label>
     <div class="title">
-      <input type="text" readonly value={{@task.title}} placeholder="Input title" />
+      <input
+        type="text"
+        readonly
+        value={{@task.title}}
+        placeholder="Input title"
+        style="text-overflow: ellipsis;"
+      />
     </div>
     <div class="actions">
       {{#if (not-eq @task.state "TASK_ARCHIVED")}}
-        <a href="/"{{action 'handlePinTask'}}><span class="icon-star"  /></a>
-      {{/if}}
-    </div>
-  </div> --}}
-  {{!--using addons section--}}
-  <div class="list-item {{@task.state}}">
-    <label class="checkbox">
-      <input type="checkbox" disabled name="checked" checked={{this.isTaskArchived}}/>
-      <span class="checkbox-custom" {{action 'handleArchiveTask'}}/>
-    </label>
-    <div class="title">
-      <input type="text" readonly value={{@task.title}} placeholder="Input title" style="text-overflow: ellipsis;" />
-    </div>
-    <div class="actions">
-      {{#if (not-eq @task.state "TASK_ARCHIVED")}}
-        <a href="/"{{action 'handlePinTask'}}><span class="icon-star"  /></a>
+        <span data-test-task-pin {{on "click" this.pin}}>
+          <span class="icon-star"></span>
+        </span>
       {{/if}}
     </div>
   </div>
   */
   {
-    id: "h2nhYdeo",
-    block: "{\"symbols\":[\"@task\"],\"statements\":[[9,\"div\",true],[13,\"class\",[32,[\"list-item \",[27,[24,1],[\"state\"]]]],null],[10],[1,1,0,0,\"\\n  \"],[9,\"label\",true],[12,\"class\",\"checkbox\",null],[10],[1,1,0,0,\"\\n    \"],[9,\"input\",true],[12,\"disabled\",\"\",null],[12,\"name\",\"checked\",null],[13,\"checked\",[27,[24,0],[\"isTaskArchived\"]],null],[12,\"type\",\"checkbox\",null],[10],[11],[1,1,0,0,\"\\n    \"],[9,\"span\",false],[23,\"class\",\"checkbox-custom\",null],[3,0,0,[27,[26,0,\"ModifierHead\"],[]],[[27,[24,0],[]],\"handleArchiveTask\"],null],[10],[11],[1,1,0,0,\"\\n  \"],[11],[1,1,0,0,\"\\n  \"],[9,\"div\",true],[12,\"class\",\"title\",null],[10],[1,1,0,0,\"\\n    \"],[9,\"input\",true],[12,\"readonly\",\"\",null],[13,\"value\",[27,[24,1],[\"title\"]],null],[12,\"placeholder\",\"Input title\",null],[12,\"style\",\"text-overflow: ellipsis;\",null],[12,\"type\",\"text\",null],[10],[11],[1,1,0,0,\"\\n  \"],[11],[1,1,0,0,\"\\n  \"],[9,\"div\",true],[12,\"class\",\"actions\",null],[10],[1,1,0,0,\"\\n\"],[5,[27,[26,2,\"BlockHead\"],[]],[[31,1174,6,[27,[26,1,\"CallHead\"],[]],[[27,[24,1],[\"state\"]],\"TASK_ARCHIVED\"],null]],null,[[\"default\"],[{\"statements\":[[1,1,0,0,\"      \"],[9,\"a\",false],[23,\"href\",\"/\",null],[3,0,0,[27,[26,0,\"ModifierHead\"],[]],[[27,[24,0],[]],\"handlePinTask\"],null],[10],[9,\"span\",true],[12,\"class\",\"icon-star\",null],[10],[11],[11],[1,1,0,0,\"\\n\"]],\"parameters\":[]}]]],[1,1,0,0,\"  \"],[11],[1,1,0,0,\"\\n\"],[11]],\"hasEval\":false,\"upvars\":[\"action\",\"not-eq\",\"if\"]}",
+    id: "4eU2fLgz",
+    block: "{\"symbols\":[\"@task\"],\"statements\":[[9,\"div\",true],[13,\"class\",[32,[\"list-item \",[27,[24,1],[\"state\"]]]],null],[12,\"data-test-task\",\"\",null],[10],[1,1,0,0,\"\\n  \"],[9,\"label\",true],[12,\"class\",\"checkbox\",null],[10],[1,1,0,0,\"\\n    \"],[9,\"input\",true],[12,\"disabled\",\"\",null],[12,\"name\",\"checked\",null],[13,\"checked\",[27,[24,0],[\"isTaskArchived\"]],null],[12,\"type\",\"checkbox\",null],[10],[11],[1,1,0,0,\"\\n    \"],[9,\"span\",false],[23,\"class\",\"checkbox-custom\",null],[23,\"data-test-task-archive\",\"\",null],[3,0,0,[27,[26,0,\"ModifierHead\"],[]],[\"click\",[27,[24,0],[\"archive\"]]],null],[10],[11],[1,1,0,0,\"\\n  \"],[11],[1,1,0,0,\"\\n  \"],[9,\"div\",true],[12,\"class\",\"title\",null],[10],[1,1,0,0,\"\\n    \"],[9,\"input\",true],[12,\"readonly\",\"\",null],[13,\"value\",[27,[24,1],[\"title\"]],null],[12,\"placeholder\",\"Input title\",null],[12,\"style\",\"text-overflow: ellipsis;\",null],[12,\"type\",\"text\",null],[10],[11],[1,1,0,0,\"\\n  \"],[11],[1,1,0,0,\"\\n  \"],[9,\"div\",true],[12,\"class\",\"actions\",null],[10],[1,1,0,0,\"\\n\"],[5,[27,[26,2,\"BlockHead\"],[]],[[31,539,6,[27,[26,1,\"CallHead\"],[]],[[27,[24,1],[\"state\"]],\"TASK_ARCHIVED\"],null]],null,[[\"default\"],[{\"statements\":[[1,1,0,0,\"      \"],[9,\"span\",false],[23,\"data-test-task-pin\",\"\",null],[3,0,0,[27,[26,0,\"ModifierHead\"],[]],[\"click\",[27,[24,0],[\"pin\"]]],null],[10],[1,1,0,0,\"\\n        \"],[9,\"span\",true],[12,\"class\",\"icon-star\",null],[10],[11],[1,1,0,0,\"\\n      \"],[11],[1,1,0,0,\"\\n\"]],\"parameters\":[]}]]],[1,1,0,0,\"  \"],[11],[1,1,0,0,\"\\n\"],[11]],\"hasEval\":false,\"upvars\":[\"on\",\"not-eq\",\"if\"]}",
     meta: {
       moduleName: "taskbox/components/Task.hbs"
     }
   });
-  /* import Component from "@glimmer/component";
-  import { action } from "@ember/object";
-  export default class TaskComponent extends Component {
-  
-   constructor(...args) {
-     super(...args);
-     console.log(`this constructor:${JSON.stringify(this.args, null, 2)}`);
-   }
-   get isTaskArchived(){
-     return this.args.task.state==='TASK_ARCHIVED'
-   }
-  
-   @action handlePinTask(e) {
-     e.preventDefault()
-  
-     console.log(`this args:${JSON.stringify(this.args, null, 2)}`);
-     this.sendon('pinTask',this.args.task.id)
-   }
-  @action handleArchiveTask(e){
-     e.preventDefault()
-     console.log(`boop`)
-   } 
-  }*/
 
-
-  var _default = Ember._setComponentTemplate(__COLOCATED_TEMPLATE__, Ember.Component.extend({
+  let Task = (_class = class Task extends _component.default {
     // computed property for the component (to assign a value to the task state checkbox)
-    isTaskArchived: Ember.computed('state', function () {
-      /* console.log(`isArchived:${this.task.state==='TASK_ARCHIVED'}`) */
-      return this.task.state === 'TASK_ARCHIVED';
-    }),
-    actions: {
-      // actions to emulate the click handlers to call the actions passed down to the component
-      handlePinTask: function () {
-        /* this.get('pinTask')(this.task.id) */
-        this.pinTask(this.task.id);
-      },
-      handleArchiveTask: function () {
-        this.archiveTask(this.task.id);
-        /* this.get('archiveTask')(this.task.id) */
-      }
+    get isTaskArchived() {
+      return this.args.task.state === "TASK_ARCHIVED";
     }
-  }));
 
-  _exports.default = _default;
+    pin() {
+      this.args.pin?.();
+    }
+
+    archive() {
+      this.args.archive?.();
+    }
+
+  }, (_applyDecoratedDescriptor(_class.prototype, "pin", [Ember._action], Object.getOwnPropertyDescriptor(_class.prototype, "pin"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "archive", [Ember._action], Object.getOwnPropertyDescriptor(_class.prototype, "archive"), _class.prototype)), _class);
+  _exports.default = Task;
+
+  Ember._setComponentTemplate(__COLOCATED_TEMPLATE__, Task);
 });
 ;define("taskbox/components/Task.stories", ["exports", "@storybook/addon-actions", "@storybook/addon-knobs"], function (_exports, _addonActions, _addonKnobs) {
   "use strict";
@@ -201,18 +175,23 @@
   const Default = () => ({
     template: Ember.HTMLBars.template(
     /*
-      {{Task task=task pinTask=(action taskActions.onPinTask) archiveTask=(action taskActions.onArchiveTask)}}
+      
+        <Task
+          @task={{this.task}}
+          @pin={{fn this.onPinTask}}
+          @archive={{fn this.onArchiveTask}}
+        />
+      
     */
     {
-      id: "3Bqo7lF4",
-      block: "{\"symbols\":[],\"statements\":[[1,0,0,0,[31,2,4,[27,[26,3,\"CallHead\"],[]],null,[[\"task\",\"pinTask\",\"archiveTask\"],[[27,[26,2,\"Expression\"],[]],[31,26,6,[27,[26,1,\"CallHead\"],[]],[[27,[24,0],[]],[27,[26,0,\"Expression\"],[\"onPinTask\"]]],null],[31,69,6,[27,[26,1,\"CallHead\"],[]],[[27,[24,0],[]],[27,[26,0,\"Expression\"],[\"onArchiveTask\"]]],null]]]]]],\"hasEval\":false,\"upvars\":[\"taskActions\",\"action\",\"task\",\"Task\"]}",
+      id: "NMFJm988",
+      block: "{\"symbols\":[],\"statements\":[[1,1,0,0,\"\\n    \"],[7,\"task\",[],[[\"@task\",\"@pin\",\"@archive\"],[[27,[24,0],[\"task\"]],[31,50,2,[27,[26,0,\"CallHead\"],[]],[[27,[24,0],[\"onPinTask\"]]],null],[31,87,2,[27,[26,0,\"CallHead\"],[]],[[27,[24,0],[\"onArchiveTask\"]]],null]]],null],[1,1,0,0,\"\\n  \"]],\"hasEval\":false,\"upvars\":[\"fn\"]}",
       meta: {}
     }),
     context: {
       task: (0, _addonKnobs.object)('task', { ...taskData
       }),
-      taskActions: { ...actionsData
-      }
+      ...actionsData
     }
   }); //
 
@@ -222,19 +201,24 @@
   const Pinned = () => ({
     template: Ember.HTMLBars.template(
     /*
-      {{Task task=task pinTask=(action taskActions.onPinTask) archiveTask=(action taskActions.onArchiveTask)}}
+      
+        <Task
+          @task={{this.task}}
+          @pin={{fn this.onPinTask}}
+          @archive={{fn this.onArchiveTask}}
+        />
+      
     */
     {
-      id: "3Bqo7lF4",
-      block: "{\"symbols\":[],\"statements\":[[1,0,0,0,[31,2,4,[27,[26,3,\"CallHead\"],[]],null,[[\"task\",\"pinTask\",\"archiveTask\"],[[27,[26,2,\"Expression\"],[]],[31,26,6,[27,[26,1,\"CallHead\"],[]],[[27,[24,0],[]],[27,[26,0,\"Expression\"],[\"onPinTask\"]]],null],[31,69,6,[27,[26,1,\"CallHead\"],[]],[[27,[24,0],[]],[27,[26,0,\"Expression\"],[\"onArchiveTask\"]]],null]]]]]],\"hasEval\":false,\"upvars\":[\"taskActions\",\"action\",\"task\",\"Task\"]}",
+      id: "NMFJm988",
+      block: "{\"symbols\":[],\"statements\":[[1,1,0,0,\"\\n    \"],[7,\"task\",[],[[\"@task\",\"@pin\",\"@archive\"],[[27,[24,0],[\"task\"]],[31,50,2,[27,[26,0,\"CallHead\"],[]],[[27,[24,0],[\"onPinTask\"]]],null],[31,87,2,[27,[26,0,\"CallHead\"],[]],[[27,[24,0],[\"onArchiveTask\"]]],null]]],null],[1,1,0,0,\"\\n  \"]],\"hasEval\":false,\"upvars\":[\"fn\"]}",
       meta: {}
     }),
     context: {
       task: { ...taskData,
         state: "TASK_PINNED"
       },
-      taskActions: { ...actionsData
-      }
+      ...actionsData
     }
   });
 
@@ -243,19 +227,24 @@
   const Archived = () => ({
     template: Ember.HTMLBars.template(
     /*
-      {{Task task=task pinTask=(action taskActions.onPinTask) archiveTask=(action taskActions.onArchiveTask)}}
+      
+        <Task
+          @task={{this.task}}
+          @pin={{fn this.onPinTask}}
+          @archive={{fn this.onArchiveTask}}
+        />
+      
     */
     {
-      id: "3Bqo7lF4",
-      block: "{\"symbols\":[],\"statements\":[[1,0,0,0,[31,2,4,[27,[26,3,\"CallHead\"],[]],null,[[\"task\",\"pinTask\",\"archiveTask\"],[[27,[26,2,\"Expression\"],[]],[31,26,6,[27,[26,1,\"CallHead\"],[]],[[27,[24,0],[]],[27,[26,0,\"Expression\"],[\"onPinTask\"]]],null],[31,69,6,[27,[26,1,\"CallHead\"],[]],[[27,[24,0],[]],[27,[26,0,\"Expression\"],[\"onArchiveTask\"]]],null]]]]]],\"hasEval\":false,\"upvars\":[\"taskActions\",\"action\",\"task\",\"Task\"]}",
+      id: "NMFJm988",
+      block: "{\"symbols\":[],\"statements\":[[1,1,0,0,\"\\n    \"],[7,\"task\",[],[[\"@task\",\"@pin\",\"@archive\"],[[27,[24,0],[\"task\"]],[31,50,2,[27,[26,0,\"CallHead\"],[]],[[27,[24,0],[\"onPinTask\"]]],null],[31,87,2,[27,[26,0,\"CallHead\"],[]],[[27,[24,0],[\"onArchiveTask\"]]],null]]],null],[1,1,0,0,\"\\n  \"]],\"hasEval\":false,\"upvars\":[\"fn\"]}",
       meta: {}
     }),
     context: {
       task: { ...taskData,
         state: "TASK_ARCHIVED"
       },
-      taskActions: { ...actionsData
-      }
+      ...actionsData
     }
   });
 
@@ -264,25 +253,30 @@
   const LongTitle = () => ({
     template: Ember.HTMLBars.template(
     /*
-      {{Task task=task pinTask=(action taskActions.onPinTask) archiveTask=(action taskActions.onArchiveTask)}}
+      
+        <Task
+          @task={{this.task}}
+          @pin={{fn this.onPinTask}}
+          @archive={{fn this.onArchiveTask}}
+        />
+      
     */
     {
-      id: "3Bqo7lF4",
-      block: "{\"symbols\":[],\"statements\":[[1,0,0,0,[31,2,4,[27,[26,3,\"CallHead\"],[]],null,[[\"task\",\"pinTask\",\"archiveTask\"],[[27,[26,2,\"Expression\"],[]],[31,26,6,[27,[26,1,\"CallHead\"],[]],[[27,[24,0],[]],[27,[26,0,\"Expression\"],[\"onPinTask\"]]],null],[31,69,6,[27,[26,1,\"CallHead\"],[]],[[27,[24,0],[]],[27,[26,0,\"Expression\"],[\"onArchiveTask\"]]],null]]]]]],\"hasEval\":false,\"upvars\":[\"taskActions\",\"action\",\"task\",\"Task\"]}",
+      id: "NMFJm988",
+      block: "{\"symbols\":[],\"statements\":[[1,1,0,0,\"\\n    \"],[7,\"task\",[],[[\"@task\",\"@pin\",\"@archive\"],[[27,[24,0],[\"task\"]],[31,50,2,[27,[26,0,\"CallHead\"],[]],[[27,[24,0],[\"onPinTask\"]]],null],[31,87,2,[27,[26,0,\"CallHead\"],[]],[[27,[24,0],[\"onArchiveTask\"]]],null]]],null],[1,1,0,0,\"\\n  \"]],\"hasEval\":false,\"upvars\":[\"fn\"]}",
       meta: {}
     }),
     context: {
       task: { ...taskData,
         title: longTitle
       },
-      taskActions: { ...actionsData
-      }
+      ...actionsData
     }
   });
 
   _exports.LongTitle = LongTitle;
 });
-;define("taskbox/components/TaskList", ["exports"], function (_exports) {
+;define("taskbox/components/inbox-screen", ["exports", "@glimmer/component", "ember-redux"], function (_exports, _component, _emberRedux) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -292,173 +286,39 @@
 
   const __COLOCATED_TEMPLATE__ = Ember.HTMLBars.template(
   /*
-    {{!-- {{#if loading}}
-    <div class="list-items">loading</div>
-  {{/if}}
-  
-  {{#if emptyTasks}}
-    <div class="list-items">empty</div>
-  {{/if}}
-  
-  {{#each @tasks as |task|}}
-   {{Task task=task pinTask=(action pinTask) archiveTask=(action archiveTask)}}
-  {{/each}} --}}
-  
-  
-  {{#if loading}}
-  <LoadingRow />
-  <LoadingRow />
-  <LoadingRow />
-  <LoadingRow />
-  <LoadingRow />
-  {{/if}}
-  
-  {{#if emptyTasks}}
-  <div class="list-items">
-    <div class="wrapper-message">
-      <span class="icon-check" />
-      <div class="title-message">You have no tasks</div>
-      <div class="subtitle-message">Sit back and relax</div>
-    </div>
+    <div>
+    <PureInboxScreen @error={{this.error}} />
   </div>
-  {{/if}}
-  
-  {{#each tasksInOrder as |task|}}
-  {{Task task=task pinTask=(action pinTask) archiveTask=(action archiveTask)}}
-  {{/each}}
   */
   {
-    id: "llvTd6Xv",
-    block: "{\"symbols\":[\"task\"],\"statements\":[[1,1,0,0,\"\\n\\n\"],[5,[27,[26,5,\"BlockHead\"],[]],[[27,[26,4,\"Expression\"],[]]],null,[[\"default\"],[{\"statements\":[[7,\"loading-row\",[],[[],[]],null],[1,1,0,0,\"\\n\"],[7,\"loading-row\",[],[[],[]],null],[1,1,0,0,\"\\n\"],[7,\"loading-row\",[],[[],[]],null],[1,1,0,0,\"\\n\"],[7,\"loading-row\",[],[[],[]],null],[1,1,0,0,\"\\n\"],[7,\"loading-row\",[],[[],[]],null],[1,1,0,0,\"\\n\"]],\"parameters\":[]}]]],[1,1,0,0,\"\\n\"],[5,[27,[26,5,\"BlockHead\"],[]],[[27,[26,6,\"Expression\"],[]]],null,[[\"default\"],[{\"statements\":[[9,\"div\",true],[12,\"class\",\"list-items\",null],[10],[1,1,0,0,\"\\n  \"],[9,\"div\",true],[12,\"class\",\"wrapper-message\",null],[10],[1,1,0,0,\"\\n    \"],[9,\"span\",true],[12,\"class\",\"icon-check\",null],[10],[11],[1,1,0,0,\"\\n    \"],[9,\"div\",true],[12,\"class\",\"title-message\",null],[10],[1,1,0,0,\"You have no tasks\"],[11],[1,1,0,0,\"\\n    \"],[9,\"div\",true],[12,\"class\",\"subtitle-message\",null],[10],[1,1,0,0,\"Sit back and relax\"],[11],[1,1,0,0,\"\\n  \"],[11],[1,1,0,0,\"\\n\"],[11],[1,1,0,0,\"\\n\"]],\"parameters\":[]}]]],[1,1,0,0,\"\\n\"],[5,[27,[26,9,\"BlockHead\"],[]],[[31,0,0,[27,[26,8,\"CallHead\"],[]],[[31,0,0,[27,[26,8,\"CallHead\"],[]],[[27,[26,7,\"Expression\"],[]]],null]],null]],null,[[\"default\"],[{\"statements\":[[1,0,0,0,[31,673,4,[27,[26,3,\"CallHead\"],[]],null,[[\"task\",\"pinTask\",\"archiveTask\"],[[27,[24,1],[]],[31,697,6,[27,[26,1,\"CallHead\"],[]],[[27,[24,0],[]],[27,[26,2,\"Expression\"],[]]],null],[31,726,6,[27,[26,1,\"CallHead\"],[]],[[27,[24,0],[]],[27,[26,0,\"Expression\"],[]]],null]]]]],[1,1,0,0,\"\\n\"]],\"parameters\":[1]}]]]],\"hasEval\":false,\"upvars\":[\"archiveTask\",\"action\",\"pinTask\",\"Task\",\"loading\",\"if\",\"emptyTasks\",\"tasksInOrder\",\"-track-array\",\"each\"]}",
+    id: "zM7seOww",
+    block: "{\"symbols\":[],\"statements\":[[9,\"div\",true],[10],[1,1,0,0,\"\\n  \"],[7,\"pure-inbox-screen\",[],[[\"@error\"],[[27,[24,0],[\"error\"]]]],null],[1,1,0,0,\"\\n\"],[11]],\"hasEval\":false,\"upvars\":[]}",
     meta: {
-      moduleName: "taskbox/components/TaskList.hbs"
+      moduleName: "taskbox/components/inbox-screen.hbs"
     }
   });
 
-  var _default = Ember._setComponentTemplate(__COLOCATED_TEMPLATE__, Ember.Component.extend({
-    emptyTasks: Ember.computed("tasks", function () {
-      /* console.log(`emptyTasks:${this.tasks.length}`); */
-      return this.tasks.length === 0 && !this.loading;
-    }),
-    tasksInOrder: Ember.computed("tasks", function () {
-      /*  console.log(`tasksInOrder:${this.tasks}`); */
-      return [...this.tasks.filter(t => t.state === "TASK_PINNED"), ...this.tasks.filter(t => t.state !== "TASK_PINNED")];
-    })
-  }));
-
-  _exports.default = _default;
-});
-;define("taskbox/components/TaskList.stories", ["exports", "taskbox/components/Task.stories"], function (_exports, _Task) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  _exports.empty = _exports.Loading = _exports.WithPinnedTasks = _exports.Default = _exports.withPinnedTasksData = _exports.defaultTasksData = _exports.default = void 0;
-  var _default = {
-    title: "TaskList",
-    component: "TaskList",
-    excludeStories: /.*Data$/
+  const stateToComputed = state => {
+    const {
+      reducer
+    } = state;
+    const {
+      isError
+    } = reducer;
+    return {
+      error: isError
+    };
   };
+
+  class InboxScreenComponent extends _component.default {// get error() {
+    //   console.log(`InboxScreen:${this.args.error}`);
+    //   return this.args.error;
+    // }
+  }
+
+  var _default = Ember._setComponentTemplate(__COLOCATED_TEMPLATE__, (0, _emberRedux.connect)(stateToComputed)(InboxScreenComponent));
+
   _exports.default = _default;
-  const defaultTasksData = [{ ..._Task.taskData,
-    id: "1",
-    title: "Task 1"
-  }, { ..._Task.taskData,
-    id: "2",
-    title: "Task 2"
-  }, { ..._Task.taskData,
-    id: "3",
-    title: "Task 3"
-  }, { ..._Task.taskData,
-    id: "4",
-    title: "Task 4"
-  }, { ..._Task.taskData,
-    id: "5",
-    title: "Task 5"
-  }, { ..._Task.taskData,
-    id: "6",
-    title: "Task 6"
-  }];
-  _exports.defaultTasksData = defaultTasksData;
-  const withPinnedTasksData = [...defaultTasksData.slice(0, 5), {
-    id: "6",
-    title: "Task 6 (pinned)",
-    state: "TASK_PINNED"
-  }];
-  _exports.withPinnedTasksData = withPinnedTasksData;
-
-  const Default = () => ({
-    template: Ember.HTMLBars.template(
-    /*
-      <div style="padding: 3rem">{{TaskList tasks=tasks pinTask=(action taskActions.onPinTask) archiveTask=(action taskActions.onArchiveTask)}}</div>
-    */
-    {
-      id: "8ISyhimR",
-      block: "{\"symbols\":[],\"statements\":[[9,\"div\",true],[12,\"style\",\"padding: 3rem\",null],[10],[1,0,0,0,[31,29,8,[27,[26,3,\"CallHead\"],[]],null,[[\"tasks\",\"pinTask\",\"archiveTask\"],[[27,[26,2,\"Expression\"],[]],[31,59,6,[27,[26,1,\"CallHead\"],[]],[[27,[24,0],[]],[27,[26,0,\"Expression\"],[\"onPinTask\"]]],null],[31,102,6,[27,[26,1,\"CallHead\"],[]],[[27,[24,0],[]],[27,[26,0,\"Expression\"],[\"onArchiveTask\"]]],null]]]]],[11]],\"hasEval\":false,\"upvars\":[\"taskActions\",\"action\",\"tasks\",\"TaskList\"]}",
-      meta: {}
-    }),
-    context: {
-      tasks: defaultTasksData,
-      taskActions: { ..._Task.actionsData
-      }
-    }
-  });
-
-  _exports.Default = Default;
-
-  const WithPinnedTasks = () => ({
-    template: Ember.HTMLBars.template(
-    /*
-      <div style="padding: 3rem">{{TaskList tasks=tasks pinTask=(action taskActions.onPinTask) archiveTask=(action taskActions.onArchiveTask)}}</div>
-    */
-    {
-      id: "8ISyhimR",
-      block: "{\"symbols\":[],\"statements\":[[9,\"div\",true],[12,\"style\",\"padding: 3rem\",null],[10],[1,0,0,0,[31,29,8,[27,[26,3,\"CallHead\"],[]],null,[[\"tasks\",\"pinTask\",\"archiveTask\"],[[27,[26,2,\"Expression\"],[]],[31,59,6,[27,[26,1,\"CallHead\"],[]],[[27,[24,0],[]],[27,[26,0,\"Expression\"],[\"onPinTask\"]]],null],[31,102,6,[27,[26,1,\"CallHead\"],[]],[[27,[24,0],[]],[27,[26,0,\"Expression\"],[\"onArchiveTask\"]]],null]]]]],[11]],\"hasEval\":false,\"upvars\":[\"taskActions\",\"action\",\"tasks\",\"TaskList\"]}",
-      meta: {}
-    }),
-    context: {
-      tasks: withPinnedTasksData,
-      taskActions: { ..._Task.actionsData
-      }
-    }
-  });
-
-  _exports.WithPinnedTasks = WithPinnedTasks;
-
-  const Loading = () => ({
-    template: Ember.HTMLBars.template(
-    /*
-      <div style="padding: 3rem">{{TaskList loading=true tasks=tasks}}</div>
-    */
-    {
-      id: "kwIyUtB4",
-      block: "{\"symbols\":[],\"statements\":[[9,\"div\",true],[12,\"style\",\"padding: 3rem\",null],[10],[1,0,0,0,[31,29,8,[27,[26,1,\"CallHead\"],[]],null,[[\"loading\",\"tasks\"],[true,[27,[26,0,\"Expression\"],[]]]]]],[11]],\"hasEval\":false,\"upvars\":[\"tasks\",\"TaskList\"]}",
-      meta: {}
-    }),
-    context: {
-      tasks: []
-    }
-  });
-
-  _exports.Loading = Loading;
-
-  const empty = () => ({
-    template: Ember.HTMLBars.template(
-    /*
-      <div style="padding: 3rem">{{TaskList tasks=tasks}}</div>
-    */
-    {
-      id: "nsQINidA",
-      block: "{\"symbols\":[],\"statements\":[[9,\"div\",true],[12,\"style\",\"padding: 3rem\",null],[10],[1,0,0,0,[31,29,8,[27,[26,1,\"CallHead\"],[]],null,[[\"tasks\"],[[27,[26,0,\"Expression\"],[]]]]]],[11]],\"hasEval\":false,\"upvars\":[\"tasks\",\"TaskList\"]}",
-      meta: {}
-    }),
-    context: {
-      tasks: []
-    }
-  });
-
-  _exports.empty = empty;
 });
 ;define("taskbox/components/loading-row", ["exports"], function (_exports) {
   "use strict";
@@ -491,6 +351,347 @@
 
   _exports.default = _default;
 });
+;define("taskbox/components/pure-inbox-screen", ["exports"], function (_exports) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  const __COLOCATED_TEMPLATE__ = Ember.HTMLBars.template(
+  /*
+    <div class="page lists-show">
+    <nav>
+      <h1 class="title-page">
+        <span class="title-wrapper">
+          Taskbox
+        </span>
+      </h1>
+    </nav>
+    {{#if @error}}
+      <div class="page lists-show">
+        <div class="wrapper-message">
+          <span class="icon-face-sad"></span>
+          <div class="title-message">
+            Oh no!
+          </div>
+          <div class="subtitle-message">
+            Something went wrong
+          </div>
+        </div>
+      </div>
+    {{else}}
+      <TaskList />
+    {{/if}}
+  </div>
+  */
+  {
+    id: "9Weem+2+",
+    block: "{\"symbols\":[\"@error\"],\"statements\":[[9,\"div\",true],[12,\"class\",\"page lists-show\",null],[10],[1,1,0,0,\"\\n  \"],[9,\"nav\",true],[10],[1,1,0,0,\"\\n    \"],[9,\"h1\",true],[12,\"class\",\"title-page\",null],[10],[1,1,0,0,\"\\n      \"],[9,\"span\",true],[12,\"class\",\"title-wrapper\",null],[10],[1,1,0,0,\"\\n        Taskbox\\n      \"],[11],[1,1,0,0,\"\\n    \"],[11],[1,1,0,0,\"\\n  \"],[11],[1,1,0,0,\"\\n\"],[5,[27,[26,0,\"BlockHead\"],[]],[[27,[24,1],[]]],null,[[\"default\",\"else\"],[{\"statements\":[[1,1,0,0,\"    \"],[9,\"div\",true],[12,\"class\",\"page lists-show\",null],[10],[1,1,0,0,\"\\n      \"],[9,\"div\",true],[12,\"class\",\"wrapper-message\",null],[10],[1,1,0,0,\"\\n        \"],[9,\"span\",true],[12,\"class\",\"icon-face-sad\",null],[10],[11],[1,1,0,0,\"\\n        \"],[9,\"div\",true],[12,\"class\",\"title-message\",null],[10],[1,1,0,0,\"\\n          Oh no!\\n        \"],[11],[1,1,0,0,\"\\n        \"],[9,\"div\",true],[12,\"class\",\"subtitle-message\",null],[10],[1,1,0,0,\"\\n          Something went wrong\\n        \"],[11],[1,1,0,0,\"\\n      \"],[11],[1,1,0,0,\"\\n    \"],[11],[1,1,0,0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[1,1,0,0,\"    \"],[7,\"task-list\",[],[[],[]],null],[1,1,0,0,\"\\n\"]],\"parameters\":[]}]]],[11]],\"hasEval\":false,\"upvars\":[\"if\"]}",
+    meta: {
+      moduleName: "taskbox/components/pure-inbox-screen.hbs"
+    }
+  });
+
+  var _default = Ember._setComponentTemplate(__COLOCATED_TEMPLATE__, Ember._templateOnlyComponent());
+
+  _exports.default = _default;
+});
+;define("taskbox/components/pure-inbox-screen.stories", ["exports"], function (_exports) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.error = _exports.Default = _exports.default = void 0;
+  var _default = {
+    title: "PureInboxScreen",
+    component: "PureInboxScreen"
+  };
+  _exports.default = _default;
+
+  const Default = () => ({
+    template: Ember.HTMLBars.template(
+    /*
+      <PureInboxScreen/>
+    */
+    {
+      id: "41h0M+Ox",
+      block: "{\"symbols\":[],\"statements\":[[7,\"pure-inbox-screen\",[],[[],[]],null]],\"hasEval\":false,\"upvars\":[]}",
+      meta: {}
+    })
+  });
+
+  _exports.Default = Default;
+
+  const error = () => ({
+    template: Ember.HTMLBars.template(
+    /*
+      <PureInboxScreen @error={{true}}/>
+    */
+    {
+      id: "Zw5hKqW5",
+      block: "{\"symbols\":[],\"statements\":[[7,\"pure-inbox-screen\",[],[[\"@error\"],[true]],null]],\"hasEval\":false,\"upvars\":[]}",
+      meta: {}
+    })
+  });
+
+  _exports.error = error;
+});
+;define("taskbox/components/pure-task-list", ["exports", "@glimmer/component"], function (_exports, _component) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  const __COLOCATED_TEMPLATE__ = Ember.HTMLBars.template(
+  /*
+    {{#if @loading}}
+    <LoadingRow />
+    <LoadingRow />
+    <LoadingRow />
+    <LoadingRow />
+    <LoadingRow />
+  {{else if this.tasksInOrder}}
+    {{#each this.tasksInOrder as |task|}}
+      <Task
+        @task={{task}}
+        @pin={{fn @pinTask task.id}}
+        @archive={{fn @archiveTask task.id}}
+      />
+    {{/each}}
+  {{else}}
+    <div class="list-items">
+      <div class="wrapper-message">
+        <span class="icon-check"></span>
+        <div class="title-message">
+          You have no tasks
+        </div>
+        <div class="subtitle-message">
+          Sit back and relax
+        </div>
+      </div>
+    </div>
+  {{/if}}
+  */
+  {
+    id: "U8OOFje3",
+    block: "{\"symbols\":[\"task\",\"@pinTask\",\"@archiveTask\",\"@loading\"],\"statements\":[[5,[27,[26,3,\"BlockHead\"],[]],[[27,[24,4],[]]],null,[[\"default\",\"else\"],[{\"statements\":[[1,1,0,0,\"  \"],[7,\"loading-row\",[],[[],[]],null],[1,1,0,0,\"\\n  \"],[7,\"loading-row\",[],[[],[]],null],[1,1,0,0,\"\\n  \"],[7,\"loading-row\",[],[[],[]],null],[1,1,0,0,\"\\n  \"],[7,\"loading-row\",[],[[],[]],null],[1,1,0,0,\"\\n  \"],[7,\"loading-row\",[],[[],[]],null],[1,1,0,0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[5,[27,[26,3,\"BlockHead\"],[]],[[27,[24,0],[\"tasksInOrder\"]]],null,[[\"default\",\"else\"],[{\"statements\":[[5,[27,[26,2,\"BlockHead\"],[]],[[31,0,0,[27,[26,1,\"CallHead\"],[]],[[31,0,0,[27,[26,1,\"CallHead\"],[]],[[27,[24,0],[\"tasksInOrder\"]]],null]],null]],null,[[\"default\"],[{\"statements\":[[1,1,0,0,\"    \"],[7,\"task\",[],[[\"@task\",\"@pin\",\"@archive\"],[[27,[24,1],[]],[31,216,2,[27,[26,0,\"CallHead\"],[]],[[27,[24,2],[]],[27,[24,1],[\"id\"]]],null],[31,255,2,[27,[26,0,\"CallHead\"],[]],[[27,[24,3],[]],[27,[24,1],[\"id\"]]],null]]],null],[1,1,0,0,\"\\n\"]],\"parameters\":[1]}]]]],\"parameters\":[]},{\"statements\":[[1,1,0,0,\"  \"],[9,\"div\",true],[12,\"class\",\"list-items\",null],[10],[1,1,0,0,\"\\n    \"],[9,\"div\",true],[12,\"class\",\"wrapper-message\",null],[10],[1,1,0,0,\"\\n      \"],[9,\"span\",true],[12,\"class\",\"icon-check\",null],[10],[11],[1,1,0,0,\"\\n      \"],[9,\"div\",true],[12,\"class\",\"title-message\",null],[10],[1,1,0,0,\"\\n        You have no tasks\\n      \"],[11],[1,1,0,0,\"\\n      \"],[9,\"div\",true],[12,\"class\",\"subtitle-message\",null],[10],[1,1,0,0,\"\\n        Sit back and relax\\n      \"],[11],[1,1,0,0,\"\\n    \"],[11],[1,1,0,0,\"\\n  \"],[11],[1,1,0,0,\"\\n\"]],\"parameters\":[]}]]]],\"parameters\":[]}]]]],\"hasEval\":false,\"upvars\":[\"fn\",\"-track-array\",\"each\",\"if\"]}",
+    meta: {
+      moduleName: "taskbox/components/pure-task-list.hbs"
+    }
+  });
+
+  class TaskList extends _component.default {
+    get tasksInOrder() {
+      return [...this.args.tasks.filter(t => t.state === 'TASK_PINNED'), ...this.args.tasks.filter(t => t.state !== 'TASK_PINNED')];
+    }
+
+  }
+
+  _exports.default = TaskList;
+
+  Ember._setComponentTemplate(__COLOCATED_TEMPLATE__, TaskList);
+});
+;define("taskbox/components/pure-task-list.stories", ["exports", "taskbox/components/task.stories"], function (_exports, _task) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.Empty = _exports.Loading = _exports.WithPinnedTasks = _exports.Default = _exports.withPinnedTasksData = _exports.defaultTasksData = _exports.default = void 0;
+  var _default = {
+    title: "PureTaskList",
+    component: "PureTaskList",
+    excludeStories: /.*Data$/
+  };
+  _exports.default = _default;
+  const defaultTasksData = [{ ..._task.taskData,
+    id: "1",
+    title: "Task 1"
+  }, { ..._task.taskData,
+    id: "2",
+    title: "Task 2"
+  }, { ..._task.taskData,
+    id: "3",
+    title: "Task 3"
+  }, { ..._task.taskData,
+    id: "4",
+    title: "Task 4"
+  }, { ..._task.taskData,
+    id: "5",
+    title: "Task 5"
+  }, { ..._task.taskData,
+    id: "6",
+    title: "Task 6"
+  }];
+  _exports.defaultTasksData = defaultTasksData;
+  const withPinnedTasksData = [...defaultTasksData.slice(0, 5), {
+    id: "6",
+    title: "Task 6 (pinned)",
+    state: "TASK_PINNED"
+  }];
+  _exports.withPinnedTasksData = withPinnedTasksData;
+
+  const Default = () => ({
+    template: Ember.HTMLBars.template(
+    /*
+      
+        <div style="padding: 3rem">
+          <PureTaskList
+            @tasks={{this.tasks}}
+            @pinTask={{fn this.onPinTask}}
+            @archiveTask={{fn this.onArchiveTask}}
+          />
+        </div>
+      
+    */
+    {
+      id: "sLfOj3fp",
+      block: "{\"symbols\":[],\"statements\":[[1,1,0,0,\"\\n    \"],[9,\"div\",true],[12,\"style\",\"padding: 3rem\",null],[10],[1,1,0,0,\"\\n      \"],[7,\"pure-task-list\",[],[[\"@tasks\",\"@pinTask\",\"@archiveTask\"],[[27,[24,0],[\"tasks\"]],[31,102,2,[27,[26,0,\"CallHead\"],[]],[[27,[24,0],[\"onPinTask\"]]],null],[31,145,2,[27,[26,0,\"CallHead\"],[]],[[27,[24,0],[\"onArchiveTask\"]]],null]]],null],[1,1,0,0,\"\\n    \"],[11],[1,1,0,0,\"\\n  \"]],\"hasEval\":false,\"upvars\":[\"fn\"]}",
+      meta: {}
+    }),
+    context: {
+      tasks: defaultTasksData,
+      ..._task.actionsData
+    }
+  });
+
+  _exports.Default = Default;
+
+  const WithPinnedTasks = () => ({
+    template: Ember.HTMLBars.template(
+    /*
+      
+        <div style="padding: 3rem">
+          <PureTaskList
+            @tasks={{this.tasks}}
+            @pinTask={{fn this.onPinTask}}
+            @archiveTask={{fn this.onArchiveTask}}
+          />
+        </div>
+      
+    */
+    {
+      id: "sLfOj3fp",
+      block: "{\"symbols\":[],\"statements\":[[1,1,0,0,\"\\n    \"],[9,\"div\",true],[12,\"style\",\"padding: 3rem\",null],[10],[1,1,0,0,\"\\n      \"],[7,\"pure-task-list\",[],[[\"@tasks\",\"@pinTask\",\"@archiveTask\"],[[27,[24,0],[\"tasks\"]],[31,102,2,[27,[26,0,\"CallHead\"],[]],[[27,[24,0],[\"onPinTask\"]]],null],[31,145,2,[27,[26,0,\"CallHead\"],[]],[[27,[24,0],[\"onArchiveTask\"]]],null]]],null],[1,1,0,0,\"\\n    \"],[11],[1,1,0,0,\"\\n  \"]],\"hasEval\":false,\"upvars\":[\"fn\"]}",
+      meta: {}
+    }),
+    context: {
+      tasks: withPinnedTasksData,
+      ..._task.actionsData
+    }
+  });
+
+  _exports.WithPinnedTasks = WithPinnedTasks;
+
+  const Loading = () => ({
+    template: Ember.HTMLBars.template(
+    /*
+      
+        <div style="padding: 3rem">
+          <PureTaskList @loading={{true}} @tasks={{this.tasks}}/>
+        </div>
+      
+    */
+    {
+      id: "uvsZ3zR1",
+      block: "{\"symbols\":[],\"statements\":[[1,1,0,0,\"\\n    \"],[9,\"div\",true],[12,\"style\",\"padding: 3rem\",null],[10],[1,1,0,0,\"\\n      \"],[7,\"pure-task-list\",[],[[\"@loading\",\"@tasks\"],[true,[27,[24,0],[\"tasks\"]]]],null],[1,1,0,0,\"\\n    \"],[11],[1,1,0,0,\"\\n  \"]],\"hasEval\":false,\"upvars\":[]}",
+      meta: {}
+    }),
+    context: {
+      tasks: []
+    }
+  });
+
+  _exports.Loading = Loading;
+
+  const Empty = () => ({
+    template: Ember.HTMLBars.template(
+    /*
+      
+        <div style="padding: 3rem">
+          <PureTaskList @tasks={{this.tasks}}/>
+        </div>
+      
+    */
+    {
+      id: "fH103aV5",
+      block: "{\"symbols\":[],\"statements\":[[1,1,0,0,\"\\n    \"],[9,\"div\",true],[12,\"style\",\"padding: 3rem\",null],[10],[1,1,0,0,\"\\n      \"],[7,\"pure-task-list\",[],[[\"@tasks\"],[[27,[24,0],[\"tasks\"]]]],null],[1,1,0,0,\"\\n    \"],[11],[1,1,0,0,\"\\n  \"]],\"hasEval\":false,\"upvars\":[]}",
+      meta: {}
+    }),
+    context: {
+      tasks: []
+    }
+  });
+
+  _exports.Empty = Empty;
+});
+;define("taskbox/components/task-list", ["exports", "@glimmer/component", "ember-redux", "taskbox/reducers/index"], function (_exports, _component, _emberRedux, _index) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  var _class;
+
+  function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) { var desc = {}; Object.keys(descriptor).forEach(function (key) { desc[key] = descriptor[key]; }); desc.enumerable = !!desc.enumerable; desc.configurable = !!desc.configurable; if ('value' in desc || desc.initializer) { desc.writable = true; } desc = decorators.slice().reverse().reduce(function (desc, decorator) { return decorator(target, property, desc) || desc; }, desc); if (context && desc.initializer !== void 0) { desc.value = desc.initializer ? desc.initializer.call(context) : void 0; desc.initializer = undefined; } if (desc.initializer === void 0) { Object.defineProperty(target, property, desc); desc = null; } return desc; }
+
+  const __COLOCATED_TEMPLATE__ = Ember.HTMLBars.template(
+  /*
+    <div>
+    <PureTaskList
+      @tasks={{this.tasks}}
+      @pinTask={{this.pinTask}}
+      @archiveTask={{this.archiveTask}}
+    />
+  </div>
+  */
+  {
+    id: "Gs7vAmHn",
+    block: "{\"symbols\":[],\"statements\":[[9,\"div\",true],[10],[1,1,0,0,\"\\n  \"],[7,\"pure-task-list\",[],[[\"@tasks\",\"@pinTask\",\"@archiveTask\"],[[27,[24,0],[\"tasks\"]],[27,[24,0],[\"pinTask\"]],[27,[24,0],[\"archiveTask\"]]]],null],[1,1,0,0,\"\\n\"],[11]],\"hasEval\":false,\"upvars\":[]}",
+    meta: {
+      moduleName: "taskbox/components/task-list.hbs"
+    }
+  });
+
+  const stateToComputed = state => {
+    const {
+      reducer
+    } = state;
+    const {
+      tasks
+    } = reducer;
+    return {
+      tasks: tasks.filter(t => t.state === "TASK_INBOX" || t.state === "TASK_PINNED")
+    };
+  };
+
+  let TaskList = (_class = class TaskList extends _component.default {
+    pinTask(taskID) {
+      console.log(`taskListOnPinTask:${taskID}`);
+      this.actions.onPinTask(taskID);
+    }
+
+    archiveTask(taskID) {
+      console.log(`taskListOnArchiveTask:${taskID}`);
+      this.actions.onArchiveTask(taskID);
+    }
+
+  }, (_applyDecoratedDescriptor(_class.prototype, "pinTask", [Ember._action], Object.getOwnPropertyDescriptor(_class.prototype, "pinTask"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "archiveTask", [Ember._action], Object.getOwnPropertyDescriptor(_class.prototype, "archiveTask"), _class.prototype)), _class);
+
+  var _default = Ember._setComponentTemplate(__COLOCATED_TEMPLATE__, (0, _emberRedux.connect)(stateToComputed, dispatch => ({
+    onArchiveTask: id => dispatch((0, _index.archiveTask)(id)),
+    onPinTask: id => dispatch((0, _index.pinTask)(id))
+  }))(TaskList));
+
+  _exports.default = _default;
+});
 ;define("taskbox/components/welcome-page", ["exports", "ember-welcome-page/components/welcome-page"], function (_exports, _welcomePage) {
   "use strict";
 
@@ -514,6 +715,19 @@
     enumerable: true,
     get: function () {
       return _debug.default;
+    }
+  });
+});
+;define("taskbox/enhancers/index", ["exports", "ember-redux/enhancers/index"], function (_exports, _index) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(_exports, "default", {
+    enumerable: true,
+    get: function () {
+      return _index.default;
     }
   });
 });
@@ -956,6 +1170,119 @@
   };
   _exports.default = _default;
 });
+;define("taskbox/middleware/index", ["exports", "ember-redux/middleware/index"], function (_exports, _index) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(_exports, "default", {
+    enumerable: true,
+    get: function () {
+      return _index.default;
+    }
+  });
+});
+;define("taskbox/reducers/index", ["exports", "redux"], function (_exports, _redux) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = _exports.reducer = _exports.setError = _exports.pinTask = _exports.archiveTask = _exports.actions = void 0;
+  // The initial state of our store when the app loads.
+  // Usually you would fetch this from a server
+  const defaultTasks = [{
+    id: "1",
+    title: "Something",
+    state: "TASK_INBOX"
+  }, {
+    id: "2",
+    title: "Something more",
+    state: "TASK_INBOX"
+  }, {
+    id: "3",
+    title: "Something else",
+    state: "TASK_INBOX"
+  }, {
+    id: "4",
+    title: "Something again",
+    state: "TASK_INBOX"
+  }];
+  const initialState = {
+    isError: false,
+    // update for screen section
+    tasks: defaultTasks
+  }; // The actions are the "names" of the changes that can happen to the store
+
+  const actions = {
+    ARCHIVE_TASK: "ARCHIVE_TASK",
+    PIN_TASK: "PIN_TASK",
+    SET_ERROR: 'SET_ERROR' // update for screen section
+
+  }; // The action creators bundle actions with the data required to execute them
+
+  _exports.actions = actions;
+
+  const archiveTask = id => ({
+    type: actions.ARCHIVE_TASK,
+    id
+  });
+
+  _exports.archiveTask = archiveTask;
+
+  const pinTask = id => ({
+    type: actions.PIN_TASK,
+    id
+  });
+
+  _exports.pinTask = pinTask;
+
+  const setError = () => ({
+    type: actions.SET_ERROR
+  }); // All our reducers simply change the state of a single task.
+
+
+  _exports.setError = setError;
+
+  function taskStateReducer(taskState) {
+    return (state, action) => {
+      return { ...state,
+        tasks: state.tasks.map(task => task.id === action.id ? { ...task,
+          state: taskState
+        } : task)
+      };
+    };
+  } // The reducer describes how the contents of the store change for each action
+
+
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case actions.ARCHIVE_TASK:
+        return taskStateReducer("TASK_ARCHIVED")(state, action);
+
+      case actions.PIN_TASK:
+        return taskStateReducer("TASK_PINNED")(state, action);
+
+      case actions.SET_ERROR:
+        // update for screen section
+        return { ...state,
+          isError: true
+        };
+
+      default:
+        return state || initialState;
+    }
+  };
+
+  _exports.reducer = reducer;
+
+  var _default = (0, _redux.combineReducers)({
+    reducer
+  });
+
+  _exports.default = _default;
+});
 ;define("taskbox/router", ["exports", "taskbox/config/environment"], function (_exports, _environment) {
   "use strict";
 
@@ -1019,6 +1346,22 @@
     }
   });
 });
+;define("taskbox/services/redux", ["exports", "ember-redux/services/redux", "taskbox/reducers/index", "taskbox/enhancers/index", "taskbox/middleware/index"], function (_exports, _redux, _index, _index2, _index3) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  var _default = _redux.default.extend({
+    reducers: _index.default,
+    enhancers: _index2.default,
+    middlewares: _index3.default
+  });
+
+  _exports.default = _default;
+});
 ;define("taskbox/services/store", ["exports", "ember-data/store"], function (_exports, _store) {
   "use strict";
 
@@ -1041,8 +1384,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "ug3/BNWm",
-    "block": "{\"symbols\":[],\"statements\":[[7,\"welcome-page\",[],[[],[]],null],[1,1,0,0,\"\\n\"],[1,1,0,0,\"\\n\"],[1,0,0,0,[31,0,0,[27,[26,1,\"CallHead\"],[]],[[31,0,0,[27,[26,0,\"CallHead\"],[]],null,null]],null]]],\"hasEval\":false,\"upvars\":[\"-outlet\",\"component\"]}",
+    "id": "HSe1F7ct",
+    "block": "{\"symbols\":[],\"statements\":[[7,\"inbox-screen\",[],[[],[]],null]],\"hasEval\":false,\"upvars\":[]}",
     "meta": {
       "moduleName": "taskbox/templates/application.hbs"
     }
@@ -1125,7 +1468,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("taskbox/app")["default"].create({"name":"taskbox","version":"0.0.0+fbde42ff"});
+            require("taskbox/app")["default"].create({"name":"taskbox","version":"0.0.0+e59bc4fc"});
           }
         
 //# sourceMappingURL=taskbox.map
