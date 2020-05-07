@@ -6,8 +6,9 @@ export default {
 };
 
 export const Default = () => ({
-  template: hbs`{{PureInboxScreen}}`,
+  template: hbs`<PureInboxScreen/>`,
 });
+
 export const error = () => ({
-  template: hbs`{{PureInboxScreen error=true}}`,
+  template: hbs`<PureInboxScreen @error={{true}}/>`,
 });
