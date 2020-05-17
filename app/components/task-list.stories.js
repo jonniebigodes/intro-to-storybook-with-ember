@@ -2,8 +2,8 @@ import { hbs } from "ember-cli-htmlbars";
 import { taskData, actionsData } from "./task.stories";
 
 export default {
-  title: "PureTaskList",
-  component: "PureTaskList",
+  title: "TaskList",
+  component: "TaskList",
   excludeStories: /.*Data$/,
 };
 
@@ -24,7 +24,7 @@ export const withPinnedTasksData = [
 export const Default = () => ({
   template: hbs`
     <div style="padding: 3rem">
-      <PureTaskList
+      <TaskList
         @tasks={{this.tasks}}
         @pinTask={{fn this.onPinTask}}
         @archiveTask={{fn this.onArchiveTask}}
@@ -40,7 +40,7 @@ export const Default = () => ({
 export const WithPinnedTasks = () => ({
   template: hbs`
     <div style="padding: 3rem">
-      <PureTaskList
+      <TaskList
         @tasks={{this.tasks}}
         @pinTask={{fn this.onPinTask}}
         @archiveTask={{fn this.onArchiveTask}}
@@ -53,21 +53,10 @@ export const WithPinnedTasks = () => ({
   },
 });
 
-export const Loading = () => ({
-  template: hbs`
-    <div style="padding: 3rem">
-      <PureTaskList @loading={{true}} @tasks={{this.tasks}}/>
-    </div>
-  `,
-  context: {
-    tasks: [],
-  },
-});
-
 export const Empty = () => ({
   template: hbs`
     <div style="padding: 3rem">
-      <PureTaskList @tasks={{this.tasks}}/>
+      <TaskList @tasks={{this.tasks}}/>
     </div>
   `,
   context: {
