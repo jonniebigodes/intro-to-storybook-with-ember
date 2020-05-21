@@ -1,5 +1,4 @@
-import { combineReducers } from "redux";
-import { actions } from './actions';
+import { actions } from '../actions';
 
 const defaultTasks = [
   { id: "1", title: "Something", state: "TASK_INBOX" },

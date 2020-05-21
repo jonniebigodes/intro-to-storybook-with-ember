@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
-import { store } from '../reduxis';
-import { pinTask, archiveTask } from '../reduxis/actions';
+import { store } from '../store';
+import { pinTask, archiveTask } from '../actions';
 
 export default class InboxScreenComponent extends Component {
   get loading() {
@@ -13,8 +13,6 @@ export default class InboxScreenComponent extends Component {
   }
 
   get tasks() {
-    console.log(store.getState());
-
     return store.getState().tasks.filter(
       (t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'
     );
