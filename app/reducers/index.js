@@ -1,6 +1,5 @@
-import { combineReducers } from "redux";
-// The initial state of our store when the app loads.
-// Usually you would fetch this from a server
+import { actions } from '../actions';
+
 const defaultTasks = [
   { id: "1", title: "Something", state: "TASK_INBOX" },
   { id: "2", title: "Something more", state: "TASK_INBOX" },
@@ -9,20 +8,11 @@ const defaultTasks = [
 ];
 
 const initialState = {
-  isError:false, // update for screen section
+  isError: false,
+  isLoading: false,
   tasks: defaultTasks,
 };
-// The actions are the "names" of the changes that can happen to the store
-export const actions = {
-  ARCHIVE_TASK: "ARCHIVE_TASK",
-  PIN_TASK: "PIN_TASK",
-  SET_ERROR:'SET_ERROR' // update for screen section
-};
 
-// The action creators bundle actions with the data required to execute them
-export const archiveTask = (id) => ({ type: actions.ARCHIVE_TASK, id });
-export const pinTask = (id) => ({ type: actions.PIN_TASK, id });
-export const setError=()=>({type:actions.SET_ERROR})
 // All our reducers simply change the state of a single task.
 function taskStateReducer(taskState) {
   return (state, action) => {
@@ -36,22 +26,25 @@ function taskStateReducer(taskState) {
 }
 
 // The reducer describes how the contents of the store change for each action
-export const reducer = (state, action) => {
+const reducers = (state, action) => {
   switch (action.type) {
     case actions.ARCHIVE_TASK:
-      return taskStateReducer("TASK_ARCHIVED")(state, action);
+      return taskStateReducer('TASK_ARCHIVED')(state, action);
     case actions.PIN_TASK:
-      return taskStateReducer("TASK_PINNED")(state, action);
-    case actions.SET_ERROR: // update for screen section
-      return{
+      return taskStateReducer('TASK_PINNED')(state, action);
+    case actions.SET_ERROR:
+      return {
         ...state,
-        isError:true
+        isError: true
+      }
+    case actions.SET_LOADING:
+      return {
+        ...state,
+        isLoading: true
       }
     default:
       return state || initialState;
   }
 };
 
-export default combineReducers({
-  reducer,
-});
+export default reducers;

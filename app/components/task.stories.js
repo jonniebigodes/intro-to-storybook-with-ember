@@ -1,9 +1,9 @@
-import { hbs } from "ember-cli-htmlbars";
-import { action } from "@storybook/addon-actions";
+import { hbs } from 'ember-cli-htmlbars';
+import { action } from '@storybook/addon-actions';
 import { withKnobs,object } from '@storybook/addon-knobs'
 export default {
-  title: "Task",
-  component: "Task",
+  title: 'Task',
+  component: 'Task',
   // create addon section
   parameters: {
     assets: [
@@ -17,15 +17,15 @@ export default {
 };
 
 export const taskData = {
-  id: "1",
-  title: "Test Task",
-  state: "TASK_INBOX",
+  id: '1',
+  title: 'Test Task',
+  state: 'TASK_INBOX',
   updatedAt: new Date(2018, 0, 1, 9, 0),
 };
 
 export const actionsData = {
-  onPinTask: action("onPinTask"),
-  onArchiveTask: action("onArchiveTask"),
+  onPinTask: action('onPinTask'),
+  onArchiveTask: action('onArchiveTask'),
 };
 
 /* export const Default = () => ({
@@ -70,7 +70,7 @@ export const Pinned = () => ({
   context: {
     task: {
       ...taskData,
-      state: "TASK_PINNED",
+      state: 'TASK_PINNED',
     },
     ...actionsData
   },
@@ -87,7 +87,7 @@ export const Archived = () => ({
   context: {
     task: {
       ...taskData,
-      state: "TASK_ARCHIVED",
+      state: 'TASK_ARCHIVED',
     },
     ...actionsData
   },

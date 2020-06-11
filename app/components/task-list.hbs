@@ -1,7 +1,21 @@
-<div>
-  <PureTaskList
-    @tasks={{this.tasks}}
-    @pinTask={{this.pinTask}}
-    @archiveTask={{this.archiveTask}}
-  />
-</div>
+{{#if this.tasksInOrder}}
+  {{#each this.tasksInOrder as |task|}}
+    <Task
+      @task={{task}}
+      @pin={{@pinTask}}
+      @archive={{@archiveTask}}
+    />
+  {{/each}}
+{{else}}
+  <div class="list-items">
+    <div class="wrapper-message">
+      <span class="icon-check"></span>
+      <div class="title-message">
+        You have no tasks
+      </div>
+      <div class="subtitle-message">
+        Sit back and relax
+      </div>
+    </div>
+  </div>
+{{/if}}
