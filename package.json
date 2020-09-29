@@ -22,7 +22,7 @@
     "storybook": "start-storybook -p 6006 -s dist --ci",
     "storybook-dev": "npm-run-all --aggregate-output --continue-on-error --parallel start storybook",
     "build-storybook": "build-storybook -s dist",
-    "prebuild-storybook": "echo \"boop\" && ember build",
+    "prebuild-storybook": "ember build",
     "storybook-local-prod": "serve storybook-static",
     "chromatic": "chromatic --project-token=ajjcec7npc5"
   },
