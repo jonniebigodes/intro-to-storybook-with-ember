@@ -24,7 +24,7 @@
     "build-storybook": "build-storybook -s dist",
     "prebuild-storybook": "ember build",
     "storybook-local-prod": "serve storybook-static",
-    "chromatic": "chromatic --project-token=oingo-bongo"
+    "chromatic": "chromatic --project-token=ajjcec7npc5"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
